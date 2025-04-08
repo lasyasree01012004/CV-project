@@ -57,65 +57,6 @@ val_gen = datagen.flow_from_directory(
     shuffle=True
 )
 
-# def attention_block(inputs):
-#     attention = layers.GlobalAveragePooling2D()(inputs)
-#     attention = layers.Dense(inputs.shape[-1] // 8, activation='relu')(attention)
-#     attention = layers.Dense(inputs.shape[-1], activation='sigmoid')(attention)
-#     attention = layers.Reshape((1, 1, inputs.shape[-1]))(attention)
-#     return layers.multiply([inputs, attention])
-
-# def build_model(input_shape, num_classes):
-#     inputs = Input(shape=input_shape)
-
-#     x = layers.Conv2D(32, (3,3), activation='relu', padding='same')(inputs)
-#     x = layers.MaxPooling2D((2,2))(x)
-
-#     x = layers.Conv2D(64, (3,3), activation='relu', padding='same')(x)
-#     x = layers.MaxPooling2D((2,2))(x)
-
-#     x = layers.Conv2D(128, (3,3), activation='relu', padding='same')(x)
-#     x = layers.MaxPooling2D((2,2))(x)
-
-#     x = attention_block(x)
-
-#     x = layers.GlobalAveragePooling2D()(x)
-#     x = layers.Dense(128, activation='relu')(x)
-#     x = layers.Dropout(0.5)(x)
-#     outputs = layers.Dense(num_classes, activation='softmax')(x)
-
-#     model = models.Model(inputs, outputs)
-#     return model
-
-# model = build_model((*IMAGE_SIZE, 3), NUM_CLASSES)
-# model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-
-# model.summary()
-
-# history = model.fit(
-#     train_gen,
-#     validation_data=val_gen,
-#     epochs=EPOCHS
-# )
-
-# loss, accuracy = model.evaluate(val_gen)
-# print(f"Validation Accuracy: {accuracy * 100:.2f}%")
-
-# import numpy as np
-# import matplotlib.pyplot as plt
-
-# x_batch, y_batch = next(val_gen)
-
-# predictions = model.predict(x_batch)
-# predicted_classes = np.argmax(predictions, axis=1)
-# true_classes = np.argmax(y_batch, axis=1)
-# class_labels = list(train_gen.class_indices.keys())
-
-# for i in range(5):
-#     plt.imshow(x_batch[i])
-#     plt.title(f"True: {class_labels[true_classes[i]]} | Predicted: {class_labels[predicted_classes[i]]}")
-#     plt.axis('off')
-#     plt.show()
-
 from tensorflow.keras import layers, models, Input
 
 def attention_block(inputs):
